@@ -6,12 +6,22 @@
     <constant name="struts.multipart.maxSize" value="20971520"/>
     
 	<package name="sys" extends="struts-default" >
+	
 		<action name="login" class="com.langton.power.sys.web.action.LoginAction" method="login"/>
-		<action name="logout" class="com.langton.power.sys.web.action.LoginAction" method="logout"/>
+<!-- 		<action name="logout" class="com.langton.power.sys.web.action.LoginAction" method="logout"/> -->
 		
 		<action name="naviTree" class="com.langton.power.sys.web.action.CoreAction" method="naviTree"/>
 		
-		<action name="addNewAdmin" class="com.langton.power.sys.web.action.CoreAction" method="addNewAdmin"/>
+		<action name="addAdminLog" class="com.langton.power.sys.web.action.AdminLogAction" method="addAdminLog"/>
+		<action name="amountAdminLog" class="com.langton.power.sys.web.action.AdminLogAction" method="amountAdminLog"/>
+		<action name="listAdminLog" class="com.langton.power.sys.web.action.AdminLogAction" method="listAdminLog"/>
+		
+		<action name="listAdmin" class="com.langton.power.sys.web.action.SuAdminAction" method="listAdmin"/>
+		<action name="addNewAdmin" class="com.langton.power.sys.web.action.SuAdminAction" method="addNewAdmin"/>
+		<action name="deleteAdmin" class="com.langton.power.sys.web.action.SuAdminAction" method="deleteAdmin"/>
+		<action name="listRight" class="com.langton.power.sys.web.action.SuAdminAction" method="listRight"/>
+		<action name="loadRight" class="com.langton.power.sys.web.action.SuAdminAction" method="loadRight"/>
+		<action name="changeRight" class="com.langton.power.sys.web.action.SuAdminAction" method="changeRight"/>
 		
 	</package>
 </struts>

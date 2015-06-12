@@ -14,13 +14,43 @@
 </listener>
 
 <filter>
-    <filter-name>loginFilter</filter-name>
-    <filter-class>com.langton.power.sys.web.filter.LoginFilter</filter-class>
-</filter>
-<filter-mapping>
-    <filter-name>loginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-</filter-mapping>
+  <filter-name>openSession</filter-name>
+  <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  <init-param>
+   <param-name>singleSession</param-name>
+   <param-value>false</param-value>
+  </init-param>
+ </filter>
+ <filter-mapping>
+  <filter-name>openSession</filter-name>
+  <url-pattern>/*</url-pattern>
+ </filter-mapping>
+
+<!-- <filter> -->
+<!-- 　　<filter-name>CharacterFilter</filter-name> -->
+<!-- 　　<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> -->
+<!-- 　　<init-param> -->
+<!-- 　　　　<param-name>encoding</param-name> -->
+<!-- 　　　　<param-value>UTF-8</param-value> -->
+<!-- 　　</init-param> -->
+<!--     <init-param> -->
+<!-- 	   <param-name>forceEncoding</param-name> -->
+<!-- 	   <param-value>true</param-value> -->
+<!--   </init-param> -->
+<!-- </filter> -->
+<!-- <filter-mapping> -->
+<!-- 　　<filter-name>CharacterFilter</filter-name> -->
+<!-- 　　<url-pattern>/*</url-pattern> -->
+<!-- </filter-mapping> -->
+
+<!-- <filter> -->
+<!--     <filter-name>loginFilter</filter-name> -->
+<!--     <filter-class>com.langton.power.sys.web.filter.LoginFilter</filter-class> -->
+<!-- </filter> -->
+<!-- <filter-mapping> -->
+<!--     <filter-name>loginFilter</filter-name> -->
+<!--     <url-pattern>/*</url-pattern> -->
+<!-- </filter-mapping> -->
     
 <filter>
 	<filter-name>struts2</filter-name>

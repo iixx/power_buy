@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.langton.power.sys.service.CoreService;
+import com.langton.power.sys.service.LoginService;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller @Scope("prototype")
@@ -21,7 +21,11 @@ public class LoginAction {
     HttpSession session = request.getSession();
     
     @Resource
-    private CoreService coreService;
+    private LoginService loginService;
+    
+    private String adminName;
+    private String password;
+    
     
     public void writeResponse(String result){
         HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
@@ -36,10 +40,28 @@ public class LoginAction {
         }
     }
     
+    public void login(){
+        String adminId = loginService.getAdminByPwd(adminName, password);
+        if(adminId != null){ //登陆通过
+            JSONObject json = new JSONObject();
+            json.put("login_result", "0");
+            json.put("login_description", "登陆成功");
+            json.put("admin_id", adminId);
+            json.put("admin_name", adminName);
+            writeResponse(json.toString());
+        }else{
+            JSONObject json = new JSONObject();
+            json.put("login_result", "-1");
+            json.put("login_description", "登陆失败,用户名或者密码错误");
+            json.put("admin_name", adminName);
+            writeResponse(json.toString());
+        }
+    }
+    
     /**
      * 登陆
      */
-    public void login(){
+    public void login_bak(){
         if(session.getAttribute("adminName") == null){// 未登陆
             String adminName = (String) request.getParameter("adminName");
             String password = (String) request.getParameter("password");
@@ -47,10 +69,10 @@ public class LoginAction {
                 JSONObject json = new JSONObject();
                 json.put("login_result", "0");
                 json.put("login_description", "登陆成功");
-                String ticket = coreService.genTicket();
-                json.put("ticket", ticket);
+//                String ticket = coreService.genTicket();
+//                json.put("ticket", ticket);
                 session.setAttribute("adminName", adminName);
-                session.setAttribute("ticket", ticket);
+//                session.setAttribute("ticket", ticket);
                 writeResponse(json.toString());
             }else{
                 JSONObject json = new JSONObject();
@@ -70,7 +92,7 @@ public class LoginAction {
     /**
      * 注销
      */
-    public void logout(){
+    public void logout_bak(){
         if(session.getAttribute("adminName") != null){
             JSONObject json = new JSONObject();
             json.put("logout_result", "0");
@@ -83,5 +105,21 @@ public class LoginAction {
             json.put("logout_description", "尚未登陆过");
             writeResponse(json.toString());
         }
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

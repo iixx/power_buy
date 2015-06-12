@@ -11,15 +11,15 @@
 >
 
 	<context:component-scan base-package="com.langton.power" />
-	
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/power?useUnicode=true&amp;characterEncoding=UTF-8" />
-		<property name="user" value="root" />
-		<property name="password" value="bt123456" />
-		<property name="initialPoolSize" value="1" />
-		<property name="minPoolSize" value="1" />
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="10" />
+		<property name="minPoolSize" value="10" />
 		<property name="maxPoolSize" value="300" />
 		<property name="maxIdleTime" value="60" />
 		<property name="acquireIncrement" value="5" />
@@ -30,7 +30,7 @@
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
-			<value>com.langton.*</value>
+			<value>com.langton.power.*</value>
 		</property>
 		<property name="hibernateProperties">
 			<value>
